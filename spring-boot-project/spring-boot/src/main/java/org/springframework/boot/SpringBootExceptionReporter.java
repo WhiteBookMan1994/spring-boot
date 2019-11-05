@@ -21,6 +21,10 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.io.support.SpringFactoriesLoader;
 
 /**
+ * 用于报告SpringApplication启动错误的回调接口。SpringBootExceptionReporters 通过SpringFactoriesLoader
+ * 加载，它必须声明一个只有一个参数ConfigurableApplicationContext的公共构造函数
+ */
+/**
  * Callback interface used to support custom reporting of {@link SpringApplication}
  * startup errors. {@link SpringBootExceptionReporter reporters} are loaded via the
  * {@link SpringFactoriesLoader} and must declare a public constructor with a single

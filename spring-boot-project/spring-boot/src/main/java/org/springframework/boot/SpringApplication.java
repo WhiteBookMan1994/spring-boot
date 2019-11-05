@@ -285,6 +285,7 @@ public class SpringApplication {
 		this.resourceLoader = resourceLoader;
 		Assert.notNull(primarySources, "PrimarySources must not be null");
 		this.primarySources = new LinkedHashSet<>(Arrays.asList(primarySources));
+		//从类加载路径获取web应用类型
 		this.webApplicationType = WebApplicationType.deduceFromClasspath();
 		setInitializers((Collection) getSpringFactoriesInstances(ApplicationContextInitializer.class));
 		setListeners((Collection) getSpringFactoriesInstances(ApplicationListener.class));
@@ -328,8 +329,11 @@ public class SpringApplication {
 			ApplicationArguments applicationArguments = new DefaultApplicationArguments(args);
 			ConfigurableEnvironment environment = prepareEnvironment(listeners, applicationArguments);
 			configureIgnoreBeanInfo(environment);
+			//打印Spring图案以及SpringBoot和版本信息
 			Banner printedBanner = printBanner(environment);
+			//创建应用上下文,Servlet Web和React webFlux有各自对应的ConfigurableApplicationContext实现
 			context = createApplicationContext();
+			//启动异常报告类创建
 			exceptionReporters = getSpringFactoriesInstances(SpringBootExceptionReporter.class,
 					new Class[]{ConfigurableApplicationContext.class}, context);
 			prepareContext(context, environment, listeners, applicationArguments, printedBanner);
