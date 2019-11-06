@@ -336,8 +336,11 @@ public class SpringApplication {
 			//启动异常报告类创建
 			exceptionReporters = getSpringFactoriesInstances(SpringBootExceptionReporter.class,
 					new Class[]{ConfigurableApplicationContext.class}, context);
+			//准备应用上下文
 			prepareContext(context, environment, listeners, applicationArguments, printedBanner);
+			//刷新应用上下文，这一步会把上下文（容器）托管给底层的Spring框架，调用Spring的AbstractApplicationContext.refresh()方法
 			refreshContext(context);
+			//afterRefresh()方法暂时是个空实现
 			afterRefresh(context, applicationArguments);
 			stopWatch.stop();
 			if (this.logStartupInfo) {
